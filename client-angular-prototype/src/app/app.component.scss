@@ -1,0 +1,25 @@
+.app-heading {
+	display: flex;
+	align-items: center;
+
+	h1 {
+		font-size: 1rem;
+	}
+
+	ul.links {
+		display: flex;
+		justify-content: space-between;
+		list-style: none;
+		padding: 0;
+		margin-left: 3rem;
+
+		li:not(:first-child) {
+			margin-left: 1rem;
+		}
+	}
+}
+
+.app-container {
+	max-width: 960px;
+	margin: 0 auto;
+}

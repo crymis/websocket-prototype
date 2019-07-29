@@ -1,0 +1,22 @@
+.ws-form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	.inputs {
+		.input-item:not(:first-child) {
+			margin-top: 1rem;
+		}
+
+		.input-item {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+	}
+
+
+	button {
+		margin-top: 2rem;
+	}
+}

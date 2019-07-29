@@ -1,0 +1,11 @@
+<h1>Overview Board</h1>
+
+<div class="panel">
+	<div class="subject">Current Subject: {{ currentTopic.title }}</div>
+	<div class="image-wrapper"><img [src]="currentTopic.imageUrl" /></div>
+	<ul class="result-list">
+		<li *ngFor="let result of results; index as i">
+			{{ result.author }} says: "{{ result.message }}"
+		</li>
+	</ul>
+</div>

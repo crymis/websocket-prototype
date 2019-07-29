@@ -1,0 +1,13 @@
+{
+  "name": "deckelt",
+  "version": "1.0.0",
+  "description": "Websocket Server",
+  "main": "index.js",
+  "author": "Daniel Eckelt",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0"
+  }
+}

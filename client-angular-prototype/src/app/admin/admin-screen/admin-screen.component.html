@@ -1,0 +1,16 @@
+<h1>Admin-Screen</h1>
+<form #wsForm="ngForm" (ngSubmit)="sendMessage(wsForm)" class="ws-form panel">
+  <div class="inputs">
+    <div class="input-item title">
+      <label for="title">Title</label>
+      <input id="title" name="title" ngModel />
+    </div>
+
+    <div class="input-item image-url">
+      <label for="imageUrl">Some Image Url</label>
+      <input id="imageUrl" name="imageUrl" ngModel />
+    </div>
+  </div>
+
+  <button type="submit">Send Next Topic over Websocket</button>
+</form>
