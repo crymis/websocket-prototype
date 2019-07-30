@@ -1,0 +1,34 @@
+version: '3'
+services:
+  angular-app:
+    image: angular-app
+    build: ./client-angular-prototype/
+      # context: client-angular-prototype/
+      # dockerfile: client-angular-prototype/Dockerfile
+    container_name: angular-app
+    hostname: angular-app
+    volumes:
+      - ./client-angular-prototype:/app
+    ports:
+      - "4200:4200"
+    networks:
+      - default
+    # The keyword'depends_on' allows you to define whether the service
+    # should wait until other services are ready before launching.
+    # Here, we want the 'client' service to wait until the 'server' service is ready.
+    depends_on:
+      - websocket-demo
+
+  websocket-demo:
+    image: websocket-demo
+    build: server-websocket-prototype/
+      # context: server-websocket-prototype/
+      # dockerfile: server-websocket-prototype/Dockerfile
+    container_name: websocket-demo
+    hostname: websocket-demo
+    volumes:
+      - ./server-websocket-prototype:/server
+    ports:
+      - "3001:3001"
+    networks:
+      - default

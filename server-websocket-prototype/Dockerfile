@@ -1,13 +1,10 @@
 FROM node:10
 
-WORKDIR /usr/src/app
+RUN mkdir server
 
-COPY package.json ./
-COPY yarn.lock ./
+WORKDIR /server
 
 RUN yarn install
-
-COPY . .
 
 EXPOSE 3001
 

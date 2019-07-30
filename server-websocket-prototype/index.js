@@ -10,8 +10,8 @@ const PORT = 3001;
 const port = process.env.PORT || PORT;
 const HOST = '0.0.0.0';
 const clients = [];
+const overviews = [];
 let admin = undefined;
-let overview = undefined;
 
 app.use(express.json());
 
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   console.log('express connection started, get route: ', req.testing);
-  res.send('Hello from Websocker Server\n');
+  res.send('Hello from Websocket Server\n');
   res.end();
 });
 
@@ -42,16 +42,17 @@ app.ws('/', (ws, req) => {
     clients.forEach(c => {
       c.send(msg);
     });
-    if (overview) {
-      console.log('Sending client msg to overview!', overview);
-      overview.send(msg); // pass msg to overview
+    if (overviews.length > 0) {
+      console.log(`Sending client msg to ${overviews.length} overviews!`);
+      overviews.forEach(overview => {
+        overview.send(msg); // pass msg to overview
+      })
     }
   });
   ws.on('close', (ws, req) => {
     console.log('closing ws', ws);
     clients.splice(clients.indexOf(ws), 1);
   });
-  console.log('socket', req.testing);
 });
 
 
@@ -68,9 +69,11 @@ app.ws('/admin', (ws, req) => {
   ws.on('message', (msg) => {
     console.log('admin', msg);
     admin.send(msg);
-    if (overview) {
-      console.log('Sending admin msg to overview!', overview);
-      overview.send(msg);
+    if (overviews.length > 0) {
+      console.log(`Sending admin msg to ${overviews.length} overviews!`);
+      overviews.forEach(overview => {
+        overview.send(msg);
+      });
     }
   })
   ws.on('close', (ws, req) => {
@@ -84,19 +87,19 @@ app.ws('/admin', (ws, req) => {
 
 app.ws('/overview', (ws, req) => {
   console.log('overview websocket connection waiting for data...');
-  if (!overview) {
-    overview = ws;
-  } else {
-    ws.send('Overview already declared!');
-    return;
+
+  if (overviews.indexOf(ws) === -1) {
+    overviews.push(ws);
   }
-  overview.on('message', (msg) => {
+  ws.on('message', (msg) => {
     console.log('overview', msg);
-    overview.send(msg);
+    overviews.forEach(overview => {
+      overview.send(msg);
+    });
   })
-  overview.on('close', (ws, req) => {
+  ws.on('close', (ws, req) => {
     console.log('closing overview ws', ws);
-    overview = undefined;
+    overviews.splice(overviews.indexOf(ws), 1);
   });
 });
 
