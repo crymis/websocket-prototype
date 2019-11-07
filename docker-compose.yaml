@@ -10,7 +10,7 @@ services:
     volumes:
       - ./client-angular-prototype:/app
     ports:
-      - "4200:4200"
+      - "80:4200"
     networks:
       - default
     # The keyword'depends_on' allows you to define whether the service
